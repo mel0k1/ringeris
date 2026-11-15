@@ -1,5 +1,5 @@
 using CommunityToolkit.Mvvm.ComponentModel;
-using Microsoft.UI.Dispatching;
+using Microsoft.UI.Xaml;
 using Ringeris.App.Localization;
 
 namespace Ringeris.App.Services;
