@@ -60,6 +60,7 @@ jobs:
       - name: pack portable
         shell: pwsh
         run: |
+          New-Item -ItemType Directory -Force publish/app/core | Out-Null
           Copy-Item core/target/release/ringeris-core.exe publish/app/core/
           Compress-Archive -Path publish/app/* -DestinationPath publish/Ringeris-portable-x64.zip
       - uses: actions/upload-artifact@v4
