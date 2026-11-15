@@ -1,0 +1,82 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+
+jobs:
+  core-linux:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: core
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - run: cargo fmt --check
+      - run: cargo clippy --all-targets -- -D warnings
+      - run: cargo test --release
+
+  core-windows:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: core
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo test --release
+
+  app-windows:
+    runs-on: windows-latest
+    needs: core-windows
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - uses: dtolnay/rust-toolchain@stable
+      - name: build core
+        run: cargo build --release
+        working-directory: core
+      - name: publish app
+        run: dotnet publish app/Ringeris.App/Ringeris.App.csproj -c Release -p:Platform=x64 -p:RuntimeIdentifier=win-x64 -o publish/app
+      - name: build installer
+        shell: pwsh
+        run: |
+          choco install innosetup -y --no-progress
+          $iscc = "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
+          & $iscc installer/ringeris.iss /DAppRoot=publish/app /DCoreExe=core/target/release/ringeris-core.exe
+      - name: pack portable
+        shell: pwsh
+        run: |
+          Copy-Item core/target/release/ringeris-core.exe publish/app/core/
+          Compress-Archive -Path publish/app/* -DestinationPath publish/Ringeris-portable-x64.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ringeris-windows
+          path: |
+            installer/artifacts/*.exe
+            publish/Ringeris-portable-x64.zip
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: app-windows
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: ringeris-windows
+          path: dist
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/artifacts/*.exe
+            dist/*.zip
+          generate_release_notes: true
