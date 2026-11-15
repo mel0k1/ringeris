@@ -44,7 +44,16 @@ jobs:
         run: cargo build --release
         working-directory: core
       - name: publish app
-        run: dotnet publish app/Ringeris.App/Ringeris.App.csproj -c Release -p:Platform=x64 -p:RuntimeIdentifier=win-x64 -o publish/app
+        shell: pwsh
+        run: |
+          dotnet publish app/Ringeris.App/Ringeris.App.csproj -c Release -p:Platform=x64 -p:RuntimeIdentifier=win-x64 -o publish/app
+          if ($LASTEXITCODE -ne 0) {
+            Get-ChildItem -Recurse -Include output.json,input.json app/Ringeris.App/obj | ForEach-Object {
+              "== $($_.FullName) =="
+              Get-Content $_.FullName -Raw
+            }
+            exit $LASTEXITCODE
+          }
       - name: build installer
         shell: pwsh
         run: |
