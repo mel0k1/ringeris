@@ -44,7 +44,13 @@ jobs:
         run: cargo build --release
         working-directory: core
       - name: publish app
-        run: dotnet publish app/Ringeris.App/Ringeris.App.csproj -c Release -p:Platform=x64 -p:RuntimeIdentifier=win-x64 -o publish/app
+        shell: pwsh
+        run: |
+          $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+          $msbuild = & $vswhere -latest -requires Microsoft.Component.MSBuild -find "MSBuild\**\Bin\MSBuild.exe" | Select-Object -First 1
+          Write-Host "MSBuild: $msbuild"
+          & $msbuild app\Ringeris.App\Ringeris.App.csproj /restore /t:Publish /p:Configuration=Release /p:Platform=x64 /p:RuntimeIdentifier=win-x64 "/p:PublishDir=$PWD\publish\app\" /nologo /v:m
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: build installer
         shell: pwsh
         run: |

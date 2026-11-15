@@ -49,7 +49,7 @@
           <TextBlock Text="{x:Bind L.CustomScanDesc}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextWrapping="Wrap"/>
           <StackPanel Orientation="Horizontal" Spacing="8">
             <TextBox
-                Text="{x:Bind Vm.CustomFolder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Text="{x:Bind Vm.CustomFolder, Mode=TwoWay}"
                 PlaceholderText="{x:Bind L.PickFolderHint}"
                 MinWidth="360"/>
             <Button Content="{x:Bind L.PickFolder}" Command="{x:Bind Vm.PickFolderCommand}"/>

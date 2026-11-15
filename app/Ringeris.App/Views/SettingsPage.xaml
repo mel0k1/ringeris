@@ -66,7 +66,7 @@
           <TextBlock Text="{x:Bind L.ExclusionsDesc}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextWrapping="Wrap"/>
           <StackPanel Orientation="Horizontal" Spacing="8">
             <TextBox
-                Text="{x:Bind Vm.NewExclusion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Text="{x:Bind Vm.NewExclusion, Mode=TwoWay}"
                 PlaceholderText="{x:Bind L.ExclusionPlaceholder}"
                 MinWidth="360"/>
             <Button Content="{x:Bind L.ExclusionAdd}" Command="{x:Bind Vm.AddExclusionCommand}" Style="{ThemeResource AccentButtonStyle}"/>
@@ -101,7 +101,7 @@
           Padding="16">
         <StackPanel Spacing="8">
           <TextBlock Text="{x:Bind L.CorePathLabel}" Style="{ThemeResource BodyStrongTextBlockStyle}"/>
-          <TextBox Text="{x:Bind Vm.CorePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="{x:Bind L.CorePathDesc}"/>
+          <TextBox Text="{x:Bind Vm.CorePath, Mode=TwoWay}" PlaceholderText="{x:Bind L.CorePathDesc}"/>
         </StackPanel>
       </Border>
       <StackPanel Orientation="Horizontal" Spacing="8">
