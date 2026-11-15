@@ -32,7 +32,7 @@ jobs:
       - run: cargo test --release
 
   app-windows:
-    runs-on: windows-latest
+    runs-on: windows-2022
     needs: core-windows
     steps:
       - uses: actions/checkout@v4
