@@ -1,0 +1,59 @@
+<Page
+    x:Class="Ringeris.App.Views.WatchPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+  <ScrollViewer>
+    <StackPanel MaxWidth="1040" HorizontalAlignment="Left" Spacing="16" Margin="32,24,32,32">
+      <TextBlock Text="{x:Bind L.WatchTitle}" Style="{ThemeResource TitleTextBlockStyle}"/>
+      <InfoBar
+          IsOpen="{x:Bind Vm.CoreMissing, Mode=OneWay}"
+          IsClosable="False"
+          Severity="Warning"
+          Title="{x:Bind L.CoreMissing}"
+          Message="{x:Bind L.CoreMissingHint}"/>
+      <InfoBar
+          IsOpen="{x:Bind Vm.IsRunning, Mode=OneWay}"
+          IsClosable="False"
+          Severity="Success"
+          Title="{x:Bind L.WatchRunningTitle}"
+          Message="{x:Bind Vm.WatchingFolder, Mode=OneWay}"/>
+      <InfoBar
+          IsOpen="{x:Bind Vm.StoppedVisible, Mode=OneWay}"
+          IsClosable="False"
+          Severity="Informational"
+          Title="{x:Bind L.WatchStoppedTitle}"
+          Message="{x:Bind L.WatchDesc}"/>
+      <TextBlock Text="{x:Bind L.WatchDesc}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextWrapping="Wrap"/>
+      <Button Command="{x:Bind Vm.ToggleCommand}" IsEnabled="{x:Bind Vm.CoreFound, Mode=OneWay}">
+        <StackPanel Orientation="Horizontal" Spacing="8">
+          <FontIcon Glyph="{x:Bind Vm.ToggleGlyph, Mode=OneWay}" FontSize="16"/>
+          <TextBlock Text="{x:Bind Vm.ToggleText, Mode=OneWay}"/>
+        </StackPanel>
+      </Button>
+      <TextBlock Text="{x:Bind L.EventsTitle}" Style="{ThemeResource SubtitleTextBlockStyle}"/>
+      <TextBlock Text="{x:Bind L.EventsEmpty}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Visibility="{x:Bind Vm.EventsEmptyVisible, Mode=OneWay}"/>
+      <ListView ItemsSource="{x:Bind Vm.Events, Mode=OneWay}" SelectionMode="None" MaxHeight="420">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <Grid Padding="4,8" ColumnSpacing="12">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+              </Grid.ColumnDefinitions>
+              <TextBlock Text="{Binding VerdictText}" Foreground="{Binding VerdictBrush}" MinWidth="90"/>
+              <StackPanel Grid.Column="1" Spacing="2">
+                <TextBlock Text="{Binding Path}" TextTrimming="CharacterEllipsis"/>
+                <TextBlock Text="{Binding NameText}" Foreground="{ThemeResource SystemFillColorCriticalBrush}" Visibility="{Binding NameVisible}"/>
+              </StackPanel>
+              <TextBlock Grid.Column="2" Text="{Binding TimeHuman}" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+            </Grid>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+    </StackPanel>
+  </ScrollViewer>
+</Page>

@@ -1,0 +1,46 @@
+<Window
+    x:Class="Ringeris.App.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <NavigationView
+      x:Name="Nav"
+      PaneDisplayMode="Left"
+      IsBackButtonVisible="Collapsed"
+      IsSettingsButtonVisible="False"
+      OpenPaneLength="230"
+      SelectionChanged="OnNavSelectionChanged">
+    <NavigationView.MenuItems>
+      <NavigationViewItem x:Name="ItemDashboard" Tag="dashboard">
+        <NavigationViewItem.Icon>
+          <FontIcon Glyph="&#xE80F;"/>
+        </NavigationViewItem.Icon>
+      </NavigationViewItem>
+      <NavigationViewItem x:Name="ItemScan" Tag="scan">
+        <NavigationViewItem.Icon>
+          <FontIcon Glyph="&#xE721;"/>
+        </NavigationViewItem.Icon>
+      </NavigationViewItem>
+      <NavigationViewItem x:Name="ItemWatch" Tag="watch">
+        <NavigationViewItem.Icon>
+          <FontIcon Glyph="&#xEA18;"/>
+        </NavigationViewItem.Icon>
+      </NavigationViewItem>
+      <NavigationViewItem x:Name="ItemQuarantine" Tag="quarantine">
+        <NavigationViewItem.Icon>
+          <FontIcon Glyph="&#xE74E;"/>
+        </NavigationViewItem.Icon>
+      </NavigationViewItem>
+      <NavigationViewItem x:Name="ItemSettings" Tag="settings">
+        <NavigationViewItem.Icon>
+          <FontIcon Glyph="&#xE713;"/>
+        </NavigationViewItem.Icon>
+      </NavigationViewItem>
+      <NavigationViewItem x:Name="ItemAbout" Tag="about">
+        <NavigationViewItem.Icon>
+          <FontIcon Glyph="&#xE946;"/>
+        </NavigationViewItem.Icon>
+      </NavigationViewItem>
+    </NavigationView.MenuItems>
+    <Frame x:Name="ContentFrame"/>
+  </NavigationView>
+</Window>
