@@ -21,7 +21,7 @@
           Title="{x:Bind L.WatchRunningTitle}"
           Message="{x:Bind Vm.WatchingFolder, Mode=OneWay}"/>
       <InfoBar
-          IsOpen="{x:Bind Vm.StoppedVisible, Mode=OneWay}"
+          IsOpen="{x:Bind Vm.StoppedOpen, Mode=OneWay}"
           IsClosable="False"
           Severity="Informational"
           Title="{x:Bind L.WatchStoppedTitle}"

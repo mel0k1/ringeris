@@ -81,6 +81,8 @@ public sealed partial class WatchService : ObservableObject
 
     public Visibility StoppedVisible => IsRunning ? Visibility.Collapsed : Visibility.Visible;
 
+    public bool StoppedOpen => !IsRunning;
+
     public bool CoreFound => !CoreMissing;
 
     public Visibility EventsEmptyVisible => Events.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
@@ -90,6 +92,7 @@ public sealed partial class WatchService : ObservableObject
         OnPropertyChanged(nameof(ToggleText));
         OnPropertyChanged(nameof(ToggleGlyph));
         OnPropertyChanged(nameof(StoppedVisible));
+        OnPropertyChanged(nameof(StoppedOpen));
     }
 
     partial void OnCoreMissingChanged(bool value)
