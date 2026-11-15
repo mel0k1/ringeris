@@ -46,7 +46,7 @@ jobs:
       - name: publish app
         shell: pwsh
         run: |
-          dotnet publish app/Ringeris.App/Ringeris.App.csproj -c Release -p:Platform=x64 -p:RuntimeIdentifier=win-x64 -o publish/app
+          dotnet publish app/Ringeris.App/Ringeris.App.csproj -c Release -p:Platform=x64 -p:RuntimeIdentifier=win-x64 -p:UseXamlCompilerExecutable=false -o publish/app
           if ($LASTEXITCODE -ne 0) {
             Get-ChildItem -Recurse -Include output.json,input.json app/Ringeris.App/obj | ForEach-Object {
               "== $($_.FullName) =="
