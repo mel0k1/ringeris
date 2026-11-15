@@ -1,0 +1,6 @@
+target/
+publish/
+artifacts/
+.vs/
+*.user
+*.log
