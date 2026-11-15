@@ -56,7 +56,7 @@ jobs:
         run: |
           choco install innosetup -y --no-progress
           $iscc = "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
-          & $iscc installer/ringeris.iss /DAppRoot=publish/app /DCoreExe=core/target/release/ringeris-core.exe
+          & $iscc installer/ringeris.iss "/DAppRoot=$PWD\publish\app" "/DCoreExe=$PWD\core\target\release\ringeris-core.exe"
       - name: pack portable
         shell: pwsh
         run: |
