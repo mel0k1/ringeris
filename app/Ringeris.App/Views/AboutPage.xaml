@@ -9,7 +9,7 @@
     <StackPanel MaxWidth="1040" HorizontalAlignment="Left" Spacing="16" Margin="32,24,32,32">
       <TextBlock Text="{x:Bind L.AboutTitle}" Style="{ThemeResource TitleTextBlockStyle}"/>
       <StackPanel Orientation="Horizontal" Spacing="14">
-        <Image Source="{x:Bind LogoUri}" Width="72" Height="72"/>
+        <Image Source="{x:Bind LogoImage}" Width="72" Height="72"/>
         <StackPanel VerticalAlignment="Center" Spacing="4">
           <TextBlock Text="{x:Bind L.AppTitle}" Style="{ThemeResource SubtitleTextBlockStyle}"/>
           <TextBlock Text="{x:Bind L.AboutVersion}" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
